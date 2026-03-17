@@ -51,12 +51,14 @@ def preprocess(X_train):
 def compute_eigenfaces_eig(X_centered, k):
     t0 = time.perf_counter()
     l = np.dot(X_centered.T,X_centered)
-    d,v = np.linalg.eig(l)
+    d,v = np.linalg.eigh(l)
     idx = np.argsort(d)[::-1]
     d = d[idx]
     v = v[:, idx]
     HQPB = v[:, :k]
     eigenfaces = np.dot(X_centered, HQPB)
+    norms = np.linalg.norm(eigenfaces, axis=0)
+    eigenfaces = eigenfaces / norms
     t1 = time.perf_counter()
     time_to_compute = t1 - t0
     return eigenfaces,time_to_compute
@@ -64,8 +66,8 @@ def compute_eigenfaces_eig(X_centered, k):
 def compute_eigenfaces_svd(X_centered,k):
     t0 = time.perf_counter()
     svd = TruncatedSVD(n_components=k)
-    svd.fit(X_centered)
-    eigenfaces = svd.components_
+    svd.fit(X_centered.T)
+    eigenfaces = svd.components_.T
 
     t1 = time.perf_counter()
     time_to_compute = t1 - t0
@@ -84,7 +86,7 @@ def show_eigenfaces(eigenfaces,method, k):
         if i < k:
             eigenface = eigenfaces[:, i]          # coloana i → (10304,)
             eigenface = eigenface.reshape(112, 92) # înapoi la imaginea originală
-            ax.imshow(eigenface.real, cmap='gray') # .real pt valori complexe
+            ax.imshow(eigenface, cmap='gray') # .real pt valori complexe
             ax.axis('off')
             ax.set_title(f"#{i+1}")
     
@@ -100,13 +102,13 @@ def compare_methods(X_centered):
 
     for k in k_list:
         eigenfaces_eig, time_eig = compute_eigenfaces_eig(X_centered, k)
-        eigenfaces_svd, time_svd = compute_eigenfaces_svd(X_centered.T, k)
+        eigenfaces_svd, time_svd = compute_eigenfaces_svd(X_centered, k)
 
         mai_rapid = "EIG" if time_eig < time_svd else "SVD"
         print(f"{k:<10} {time_eig:<20.4f} {time_svd:<20.4f} {mai_rapid:<10}")
 
         show_eigenfaces(eigenfaces_eig, "eig", k)
-        show_eigenfaces(eigenfaces_svd.T, "svd", k)
+        show_eigenfaces(eigenfaces_svd, "svd", k)
         
 
 
