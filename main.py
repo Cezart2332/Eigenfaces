@@ -1,5 +1,4 @@
 from matplotlib import pyplot as plt
-import numpy as np
 from sklearn.decomposition import TruncatedSVD
 import scipy
 import time
