@@ -114,7 +114,7 @@ curl -LsSf https://astral.sh/uv/install.sh | sh # for Mac/Linux
 ```bash
 uv venv #inside project folder
 uv sync #to sync dependencies from lockfile
-.venv\Scripts\activate #to activate the virtual enviornment on Windows
+.venv\Scripts\activate #to activate the virtual environment on Windows
 source .venv/bin/activate #to activte on Mac/Linux
 uv run main.py #to run the python file
 ```
