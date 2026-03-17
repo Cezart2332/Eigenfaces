@@ -1,4 +1,4 @@
-# 👤 Eigenfaces – SVD vs EIG Comparison
+# Eigenfaces – SVD vs EIG Comparison
 
 A Python implementation of the **Eigenfaces algorithm** for facial recognition, comparing two decomposition methods: classical **EIG** (via covariance matrix) and **Truncated SVD** (via scikit-learn).
 
@@ -37,7 +37,7 @@ NR_POZE_TEST      = 2    # remaining images used for testing
 
 ---
 
-## 🧠 How It Works
+## How It Works
 
 ### 1. Data Loading
 Images are flattened into 1D vectors of size **10304** (92×112) and arranged into a matrix of shape `(10304, n_train)`.
@@ -85,7 +85,6 @@ Eigenfaces are saved as images for each method and each value of k (4×5 grid fo
 
 | EIG k=20 | SVD k=20 |
 |----------|----------|
-| ![eig](Eigenfaces%20k%20=20,%20method=eig.png) | ![svd](Eigenfaces%20k%20=20,%20method=svd.png) |
 
 ---
 
