@@ -85,7 +85,10 @@ Eigenfaces are saved as images for each method and each value of k (4×5 grid fo
 
 | EIG k=20 | SVD k=20 |
 |----------|----------|
+<<<<<<< HEAD
 |  |
+=======
+>>>>>>> befcc03db6b1dfab32bb0fc1ea6c83637c2b297d
 
 ---
 
